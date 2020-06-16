@@ -7,34 +7,24 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		FF3C9865249932E400FFFB3D /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF3C9864249932E400FFFB3D /* main.swift */; };
-		FF3C987024993DD600FFFB3D /* SwiftSDL2 in Frameworks */ = {isa = PBXBuildFile; productRef = FF3C986F24993DD600FFFB3D /* SwiftSDL2 */; };
+		FF3C98872499507F00FFFB3D /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = FF3C98862499507F00FFFB3D /* Info.plist */; };
+		FF3C9888249950AF00FFFB3D /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF3C9864249932E400FFFB3D /* main.swift */; };
+		FF3C988B249950D000FFFB3D /* SwiftSDL2 in Frameworks */ = {isa = PBXBuildFile; productRef = FF3C988A249950D000FFFB3D /* SwiftSDL2 */; };
 /* End PBXBuildFile section */
 
-/* Begin PBXCopyFilesBuildPhase section */
-		FF3C985F249932E400FFFB3D /* CopyFiles */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = /usr/share/man/man1/;
-			dstSubfolderSpec = 0;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 1;
-		};
-/* End PBXCopyFilesBuildPhase section */
-
 /* Begin PBXFileReference section */
-		FF3C9861249932E400FFFB3D /* BabaEresTu */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = BabaEresTu; sourceTree = BUILT_PRODUCTS_DIR; };
 		FF3C9864249932E400FFFB3D /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
-		FF3C98712499406E00FFFB3D /* BabaEresTu.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = BabaEresTu.entitlements; sourceTree = "<group>"; };
+		FF3C98762499505A00FFFB3D /* BabaEresTuApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BabaEresTuApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		FF3C98822499505E00FFFB3D /* BabaEresTuApp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = BabaEresTuApp.entitlements; sourceTree = "<group>"; };
+		FF3C98862499507F00FFFB3D /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		FF3C985E249932E400FFFB3D /* Frameworks */ = {
+		FF3C98732499505A00FFFB3D /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FF3C987024993DD600FFFB3D /* SwiftSDL2 in Frameworks */,
+				FF3C988B249950D000FFFB3D /* SwiftSDL2 in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -44,50 +34,59 @@
 		FF3C9858249932E400FFFB3D = {
 			isa = PBXGroup;
 			children = (
-				FF3C9863249932E400FFFB3D /* BabaEresTu */,
+				FF3C98772499505A00FFFB3D /* BabaEresTuApp */,
 				FF3C9862249932E400FFFB3D /* Products */,
+				FF3C9889249950D000FFFB3D /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
 		FF3C9862249932E400FFFB3D /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				FF3C9861249932E400FFFB3D /* BabaEresTu */,
+				FF3C98762499505A00FFFB3D /* BabaEresTuApp.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		FF3C9863249932E400FFFB3D /* BabaEresTu */ = {
+		FF3C98772499505A00FFFB3D /* BabaEresTuApp */ = {
 			isa = PBXGroup;
 			children = (
-				FF3C98712499406E00FFFB3D /* BabaEresTu.entitlements */,
 				FF3C9864249932E400FFFB3D /* main.swift */,
+				FF3C98862499507F00FFFB3D /* Info.plist */,
+				FF3C98822499505E00FFFB3D /* BabaEresTuApp.entitlements */,
 			);
-			path = BabaEresTu;
+			path = BabaEresTuApp;
+			sourceTree = "<group>";
+		};
+		FF3C9889249950D000FFFB3D /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		FF3C9860249932E400FFFB3D /* BabaEresTu */ = {
+		FF3C98752499505A00FFFB3D /* BabaEresTuApp */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = FF3C9868249932E400FFFB3D /* Build configuration list for PBXNativeTarget "BabaEresTu" */;
+			buildConfigurationList = FF3C98832499505E00FFFB3D /* Build configuration list for PBXNativeTarget "BabaEresTuApp" */;
 			buildPhases = (
-				FF3C985D249932E400FFFB3D /* Sources */,
-				FF3C985E249932E400FFFB3D /* Frameworks */,
-				FF3C985F249932E400FFFB3D /* CopyFiles */,
+				FF3C98722499505A00FFFB3D /* Sources */,
+				FF3C98732499505A00FFFB3D /* Frameworks */,
+				FF3C98742499505A00FFFB3D /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
-			name = BabaEresTu;
+			name = BabaEresTuApp;
 			packageProductDependencies = (
-				FF3C986F24993DD600FFFB3D /* SwiftSDL2 */,
+				FF3C988A249950D000FFFB3D /* SwiftSDL2 */,
 			);
-			productName = BabaEresTu;
-			productReference = FF3C9861249932E400FFFB3D /* BabaEresTu */;
-			productType = "com.apple.product-type.tool";
+			productName = BabaEresTuApp;
+			productReference = FF3C98762499505A00FFFB3D /* BabaEresTuApp.app */;
+			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
 
@@ -99,7 +98,7 @@
 				LastUpgradeCheck = 1150;
 				ORGANIZATIONNAME = LiserCorp;
 				TargetAttributes = {
-					FF3C9860249932E400FFFB3D = {
+					FF3C98752499505A00FFFB3D = {
 						CreatedOnToolsVersion = 11.5;
 					};
 				};
@@ -120,17 +119,28 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				FF3C9860249932E400FFFB3D /* BabaEresTu */,
+				FF3C98752499505A00FFFB3D /* BabaEresTuApp */,
 			);
 		};
 /* End PBXProject section */
 
+/* Begin PBXResourcesBuildPhase section */
+		FF3C98742499505A00FFFB3D /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FF3C98872499507F00FFFB3D /* Info.plist in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
-		FF3C985D249932E400FFFB3D /* Sources */ = {
+		FF3C98722499505A00FFFB3D /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FF3C9865249932E400FFFB3D /* main.swift in Sources */,
+				FF3C9888249950AF00FFFB3D /* main.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -250,30 +260,40 @@
 			};
 			name = Release;
 		};
-		FF3C9869249932E400FFFB3D /* Debug */ = {
+		FF3C98842499505E00FFFB3D /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_ENTITLEMENTS = BabaEresTu/BabaEresTu.entitlements;
-				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_ENTITLEMENTS = BabaEresTuApp/BabaEresTuApp.entitlements;
 				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = 3F7SUY6C44;
 				ENABLE_HARDENED_RUNTIME = YES;
+				INFOPLIST_FILE = BabaEresTuApp/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.lisercorp.BabaEresTuApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
 		};
-		FF3C986A249932E400FFFB3D /* Release */ = {
+		FF3C98852499505E00FFFB3D /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_ENTITLEMENTS = BabaEresTu/BabaEresTu.entitlements;
-				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_ENTITLEMENTS = BabaEresTuApp/BabaEresTuApp.entitlements;
 				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = 3F7SUY6C44;
 				ENABLE_HARDENED_RUNTIME = YES;
+				INFOPLIST_FILE = BabaEresTuApp/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.lisercorp.BabaEresTuApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
@@ -290,11 +310,11 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		FF3C9868249932E400FFFB3D /* Build configuration list for PBXNativeTarget "BabaEresTu" */ = {
+		FF3C98832499505E00FFFB3D /* Build configuration list for PBXNativeTarget "BabaEresTuApp" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				FF3C9869249932E400FFFB3D /* Debug */,
-				FF3C986A249932E400FFFB3D /* Release */,
+				FF3C98842499505E00FFFB3D /* Debug */,
+				FF3C98852499505E00FFFB3D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -313,7 +333,7 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		FF3C986F24993DD600FFFB3D /* SwiftSDL2 */ = {
+		FF3C988A249950D000FFFB3D /* SwiftSDL2 */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = FF3C986E24993DD600FFFB3D /* XCRemoteSwiftPackageReference "SwiftSDL" */;
 			productName = SwiftSDL2;
