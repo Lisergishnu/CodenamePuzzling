@@ -92,7 +92,13 @@ try SDL.Run { engine in
   try engine.start(subsystems: .video)
 
   // Create renderer ---------------------------------------------------------
-  let (window, renderer) = try engine.addWindow(width: 640, height: 480)
+  let (window, renderer) = try engine.addWindow(
+    title: "Baba Eres Tu",
+    width: 640,
+    height: 480,
+    windowFlags: .allowHighDPI,
+    renderFlags: [.targetTexturing, .verticalSync]
+  )
 
   // MARK: - Load resources
 
@@ -186,29 +192,29 @@ try SDL.Run { engine in
         switch tile {
         case .Baba:
           textureToDraw = babaTexture
-          case .Flag:
+        case .Flag:
           textureToDraw = flagTexture
-          case .Rock:
+        case .Rock:
           textureToDraw = rockTexture
-          case .TextBaba:
+        case .TextBaba:
           textureToDraw = textBabaTexture
-          case .TextFlag:
+        case .TextFlag:
           textureToDraw = textFlagTexture
-          case .TextIs:
+        case .TextIs:
           textureToDraw = textIsTexture
-          case .TextPush:
+        case .TextPush:
           textureToDraw = textPushTexture
-          case .TextRock:
+        case .TextRock:
           textureToDraw = textRockTexture
-          case .TextStop:
+        case .TextStop:
           textureToDraw = textStopTexture
-          case .TextWall:
+        case .TextWall:
           textureToDraw = textWallTexture
-          case .TextWin:
+        case .TextWin:
           textureToDraw = textWinTexture
-          case .TextYou:
+        case .TextYou:
           textureToDraw = textYouTexture
-          case .Wall:
+        case .Wall:
           textureToDraw = wallTexture
         default: break
 
