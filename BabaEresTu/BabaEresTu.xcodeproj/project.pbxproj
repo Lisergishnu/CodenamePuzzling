@@ -7,12 +7,38 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		FF0526C7249956EE00CB5F9B /* Wall.png in Resources */ = {isa = PBXBuildFile; fileRef = FF0526BA249956ED00CB5F9B /* Wall.png */; };
+		FF0526C8249956EE00CB5F9B /* Baba.png in Resources */ = {isa = PBXBuildFile; fileRef = FF0526BB249956EE00CB5F9B /* Baba.png */; };
+		FF0526C9249956EE00CB5F9B /* TextYou.png in Resources */ = {isa = PBXBuildFile; fileRef = FF0526BC249956EE00CB5F9B /* TextYou.png */; };
+		FF0526CA249956EE00CB5F9B /* Flag.png in Resources */ = {isa = PBXBuildFile; fileRef = FF0526BD249956EE00CB5F9B /* Flag.png */; };
+		FF0526CB249956EE00CB5F9B /* TextWall.png in Resources */ = {isa = PBXBuildFile; fileRef = FF0526BE249956EE00CB5F9B /* TextWall.png */; };
+		FF0526CC249956EE00CB5F9B /* TextWin.png in Resources */ = {isa = PBXBuildFile; fileRef = FF0526BF249956EE00CB5F9B /* TextWin.png */; };
+		FF0526CD249956EE00CB5F9B /* TextBaba.png in Resources */ = {isa = PBXBuildFile; fileRef = FF0526C0249956EE00CB5F9B /* TextBaba.png */; };
+		FF0526CE249956EE00CB5F9B /* TextStop.png in Resources */ = {isa = PBXBuildFile; fileRef = FF0526C1249956EE00CB5F9B /* TextStop.png */; };
+		FF0526CF249956EE00CB5F9B /* TextRock.png in Resources */ = {isa = PBXBuildFile; fileRef = FF0526C2249956EE00CB5F9B /* TextRock.png */; };
+		FF0526D0249956EE00CB5F9B /* TextPush.png in Resources */ = {isa = PBXBuildFile; fileRef = FF0526C3249956EE00CB5F9B /* TextPush.png */; };
+		FF0526D1249956EE00CB5F9B /* Rock.png in Resources */ = {isa = PBXBuildFile; fileRef = FF0526C4249956EE00CB5F9B /* Rock.png */; };
+		FF0526D2249956EE00CB5F9B /* TextIs.png in Resources */ = {isa = PBXBuildFile; fileRef = FF0526C5249956EE00CB5F9B /* TextIs.png */; };
+		FF0526D3249956EE00CB5F9B /* TextFlag.png in Resources */ = {isa = PBXBuildFile; fileRef = FF0526C6249956EE00CB5F9B /* TextFlag.png */; };
 		FF3C98872499507F00FFFB3D /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = FF3C98862499507F00FFFB3D /* Info.plist */; };
 		FF3C9888249950AF00FFFB3D /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF3C9864249932E400FFFB3D /* main.swift */; };
 		FF3C988B249950D000FFFB3D /* SwiftSDL2 in Frameworks */ = {isa = PBXBuildFile; productRef = FF3C988A249950D000FFFB3D /* SwiftSDL2 */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		FF0526BA249956ED00CB5F9B /* Wall.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Wall.png; sourceTree = "<group>"; };
+		FF0526BB249956EE00CB5F9B /* Baba.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Baba.png; sourceTree = "<group>"; };
+		FF0526BC249956EE00CB5F9B /* TextYou.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TextYou.png; sourceTree = "<group>"; };
+		FF0526BD249956EE00CB5F9B /* Flag.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Flag.png; sourceTree = "<group>"; };
+		FF0526BE249956EE00CB5F9B /* TextWall.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TextWall.png; sourceTree = "<group>"; };
+		FF0526BF249956EE00CB5F9B /* TextWin.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TextWin.png; sourceTree = "<group>"; };
+		FF0526C0249956EE00CB5F9B /* TextBaba.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TextBaba.png; sourceTree = "<group>"; };
+		FF0526C1249956EE00CB5F9B /* TextStop.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TextStop.png; sourceTree = "<group>"; };
+		FF0526C2249956EE00CB5F9B /* TextRock.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TextRock.png; sourceTree = "<group>"; };
+		FF0526C3249956EE00CB5F9B /* TextPush.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TextPush.png; sourceTree = "<group>"; };
+		FF0526C4249956EE00CB5F9B /* Rock.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Rock.png; sourceTree = "<group>"; };
+		FF0526C5249956EE00CB5F9B /* TextIs.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TextIs.png; sourceTree = "<group>"; };
+		FF0526C6249956EE00CB5F9B /* TextFlag.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TextFlag.png; sourceTree = "<group>"; };
 		FF3C9864249932E400FFFB3D /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		FF3C98762499505A00FFFB3D /* BabaEresTuApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BabaEresTuApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FF3C98822499505E00FFFB3D /* BabaEresTuApp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = BabaEresTuApp.entitlements; sourceTree = "<group>"; };
@@ -31,6 +57,26 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		FF0526B72499527900CB5F9B /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				FF0526BB249956EE00CB5F9B /* Baba.png */,
+				FF0526BD249956EE00CB5F9B /* Flag.png */,
+				FF0526C4249956EE00CB5F9B /* Rock.png */,
+				FF0526C0249956EE00CB5F9B /* TextBaba.png */,
+				FF0526C6249956EE00CB5F9B /* TextFlag.png */,
+				FF0526C5249956EE00CB5F9B /* TextIs.png */,
+				FF0526C3249956EE00CB5F9B /* TextPush.png */,
+				FF0526C2249956EE00CB5F9B /* TextRock.png */,
+				FF0526C1249956EE00CB5F9B /* TextStop.png */,
+				FF0526BE249956EE00CB5F9B /* TextWall.png */,
+				FF0526BF249956EE00CB5F9B /* TextWin.png */,
+				FF0526BC249956EE00CB5F9B /* TextYou.png */,
+				FF0526BA249956ED00CB5F9B /* Wall.png */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
 		FF3C9858249932E400FFFB3D = {
 			isa = PBXGroup;
 			children = (
@@ -51,6 +97,7 @@
 		FF3C98772499505A00FFFB3D /* BabaEresTuApp */ = {
 			isa = PBXGroup;
 			children = (
+				FF0526B72499527900CB5F9B /* Resources */,
 				FF3C9864249932E400FFFB3D /* main.swift */,
 				FF3C98862499507F00FFFB3D /* Info.plist */,
 				FF3C98822499505E00FFFB3D /* BabaEresTuApp.entitlements */,
@@ -129,7 +176,20 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FF0526D2249956EE00CB5F9B /* TextIs.png in Resources */,
+				FF0526C7249956EE00CB5F9B /* Wall.png in Resources */,
+				FF0526CC249956EE00CB5F9B /* TextWin.png in Resources */,
+				FF0526CB249956EE00CB5F9B /* TextWall.png in Resources */,
+				FF0526C8249956EE00CB5F9B /* Baba.png in Resources */,
+				FF0526D1249956EE00CB5F9B /* Rock.png in Resources */,
+				FF0526CE249956EE00CB5F9B /* TextStop.png in Resources */,
+				FF0526D3249956EE00CB5F9B /* TextFlag.png in Resources */,
+				FF0526CF249956EE00CB5F9B /* TextRock.png in Resources */,
+				FF0526CA249956EE00CB5F9B /* Flag.png in Resources */,
+				FF0526D0249956EE00CB5F9B /* TextPush.png in Resources */,
 				FF3C98872499507F00FFFB3D /* Info.plist in Resources */,
+				FF0526C9249956EE00CB5F9B /* TextYou.png in Resources */,
+				FF0526CD249956EE00CB5F9B /* TextBaba.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
