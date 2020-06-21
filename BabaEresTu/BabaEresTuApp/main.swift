@@ -10,6 +10,13 @@ import CSDL2
 import Foundation
 import SwiftSDL2
 
+// MARK: - Math
+
+struct LevelPosition {
+  var i: Int
+  var j: Int
+}
+
 // MARK: - Extensions
 
 extension SDLTexture {
@@ -24,6 +31,48 @@ extension SDLTexture {
     ]
   }
 
+}
+
+// MARK: Rules
+
+enum Adjective {
+  case You
+}
+
+func readRulesForThisStep() -> [Adjective: [Tile]] {
+  let rules: [Adjective: [Tile]] = [.You : [.Baba]]
+
+  return rules
+}
+
+// MARK: Movement
+
+func moveYou(using di:Int, and dj:Int) {
+  let rules = readRulesForThisStep()
+  guard let affectedTiles = rules[.You] else {
+    return
+  }
+
+  for affectedTile in affectedTiles {
+    for position in getPositions(of: affectedTile) {
+      let nextPosition = LevelPosition(i: position.i + di, j: position.j + dj)
+      if canMove(to: nextPosition) {
+        move(tile: affectedTile, from: position, to: nextPosition)
+      }
+    }
+  }
+}
+
+func canMove(to position: LevelPosition) -> Bool {
+  if position.i < 0 || position.j < 0 || position.i >= level.first!.count || position.j >= level.count {
+    return false
+  }
+  return true
+}
+
+func move(tile: Tile, from startingPosition: LevelPosition, to endPosition:LevelPosition) {
+  level[startingPosition.j][startingPosition.i] = .Empty
+  level[endPosition.j][endPosition.i] = tile
 }
 
 // MARK: - Level
@@ -86,6 +135,20 @@ var level: [[Tile]] =
       .Empty, .Empty,
     ],
   ]
+
+func getPositions(of tile: Tile) -> [LevelPosition] {
+  var positions: [LevelPosition] = []
+  for j in 0..<level.count {
+    for i in 0..<level.first!.count {
+      if tile == level[j][i] {
+        positions.append(LevelPosition(i: i, j: j))
+      }
+    }
+  }
+  return positions
+}
+
+// MARK: - SDL
 
 try SDL.Run { engine in
   // Start engine ------------------------------------------------------------
@@ -168,18 +231,32 @@ try SDL.Run { engine in
     texturesNamed: "Wall.png"
   )
 
-  // Handle input ------------------------------------------------------------
+  // MARK: - Input
   engine.handleInput = { [weak engine] in
     var event = SDL_Event()
     while SDL_PollEvent(&event) != 0 {
       if event.type == SDL_QUIT.rawValue {
         engine?.removeWindow(window)
         engine?.stop()
+      } else if event.type == SDL_KEYDOWN.rawValue {
+        if event.key.keysym.sym == SDLK_LEFT.rawValue {
+          // move left
+          moveYou(using: -1, and: 0)
+        } else if event.key.keysym.sym == SDLK_RIGHT.rawValue {
+          // move right
+          moveYou(using: 1, and: 0)
+        } else if event.key.keysym.sym == SDLK_UP.rawValue {
+          // move up
+          moveYou(using: 0, and: -1)
+        } else if event.key.keysym.sym == SDLK_DOWN.rawValue {
+          // move down
+          moveYou(using: 0, and: 1)
+        }
       }
     }
   }
 
-  // Render ------------------------------------------------------------------
+  // MARK: - Render
   engine.render = {
     renderer.result(of: SDL_SetRenderDrawColor, 0, 0, 0, 255)
     renderer.result(of: SDL_RenderClear)
