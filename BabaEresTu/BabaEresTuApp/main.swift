@@ -37,10 +37,11 @@ extension SDLTexture {
 
 enum Adjective {
   case You
+  case Stop
 }
 
 func readRulesForThisStep() -> [Adjective: [Tile]] {
-  let rules: [Adjective: [Tile]] = [.You : [.Baba]]
+  let rules: [Adjective: [Tile]] = [.You : [.Baba], .Stop : [.Wall, .Rock]]
 
   return rules
 }
@@ -67,6 +68,14 @@ func canMove(to position: LevelPosition) -> Bool {
   if position.i < 0 || position.j < 0 || position.i >= level.first!.count || position.j >= level.count {
     return false
   }
+
+  if let stopTiles = readRulesForThisStep()[.Stop] {
+    let tileAtPosition = level[position.j][position.i]
+    if stopTiles.contains(tileAtPosition) {
+      return false
+    }
+  }
+
   return true
 }
 
