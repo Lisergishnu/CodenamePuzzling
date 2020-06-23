@@ -33,7 +33,11 @@ extension SDLTexture {
 
 }
 
-// MARK: Rules
+// MARK: - Level
+
+var level: Level = Level()
+
+// MARK: - Rules
 
 enum Adjective {
   case You
@@ -41,120 +45,32 @@ enum Adjective {
 }
 
 func readRulesForThisStep() -> [Adjective: [Tile]] {
-  let rules: [Adjective: [Tile]] = [.You : [.Baba], .Stop : [.Wall, .Rock]]
+  let rules: [Adjective: [Tile]] = [.You: [.Baba], .Stop: [.Wall, .Rock]]
 
   return rules
 }
 
 // MARK: Movement
 
-func moveYou(using di:Int, and dj:Int) {
+func moveYou(using di: Int, and dj: Int) {
   let rules = readRulesForThisStep()
   guard let affectedTiles = rules[.You] else {
     return
   }
 
   for affectedTile in affectedTiles {
-    for position in getPositions(of: affectedTile) {
+    for position in level.getPositions(of: affectedTile) {
       let nextPosition = LevelPosition(i: position.i + di, j: position.j + dj)
-      if canMove(to: nextPosition) {
+      if level.canMove(to: nextPosition) {
         move(tile: affectedTile, from: position, to: nextPosition)
       }
     }
   }
 }
 
-func canMove(to position: LevelPosition) -> Bool {
-  if position.i < 0 || position.j < 0 || position.i >= level.first!.count || position.j >= level.count {
-    return false
-  }
-
-  if let stopTiles = readRulesForThisStep()[.Stop] {
-    let tileAtPosition = level[position.j][position.i]
-    if stopTiles.contains(tileAtPosition) {
-      return false
-    }
-  }
-
-  return true
-}
-
-func move(tile: Tile, from startingPosition: LevelPosition, to endPosition:LevelPosition) {
-  level[startingPosition.j][startingPosition.i] = .Empty
-  level[endPosition.j][endPosition.i] = tile
-}
-
-// MARK: - Level
-
-enum Tile {
-  case Empty
-  case Flag
-  case Baba
-  case Rock
-  case Wall
-  case TextWall
-  case TextRock
-  case TextFlag
-  case TextBaba
-  case TextIs
-  case TextYou
-  case TextWin
-  case TextStop
-  case TextPush
-}
-
-var level: [[Tile]] =
-  [
-    [
-      .Empty, .Empty, .Empty, .Empty, .Empty, .Empty, .Empty, .Empty, .Empty, .Empty, .Empty,
-      .Empty, .Empty,
-    ],
-    [
-      .Empty, .TextBaba, .TextIs, .TextYou, .Empty, .Empty, .Empty, .Empty, .Empty, .TextFlag,
-      .TextIs, .TextWin, .Empty,
-    ],
-    [
-      .Empty, .Empty, .Empty, .Empty, .Empty, .Empty, .Empty, .Empty, .Empty, .Empty, .Empty,
-      .Empty, .Empty,
-    ],
-    [.Empty, .Wall, .Wall, .Wall, .Wall, .Wall, .Wall, .Wall, .Wall, .Wall, .Wall, .Wall, .Empty],
-    [
-      .Empty, .Empty, .Empty, .Empty, .Empty, .Empty, .Rock, .Empty, .Empty, .Empty, .Empty,
-      .Empty, .Empty,
-    ],
-    [
-      .Empty, .Empty, .Baba, .Empty, .Empty, .Empty, .Rock, .Empty, .Empty, .Empty, .Flag,
-      .Empty, .Empty,
-    ],
-    [
-      .Empty, .Empty, .Empty, .Empty, .Empty, .Empty, .Rock, .Empty, .Empty, .Empty, .Empty,
-      .Empty, .Empty,
-    ],
-    [.Empty, .Wall, .Wall, .Wall, .Wall, .Wall, .Wall, .Wall, .Wall, .Wall, .Wall, .Wall, .Empty],
-    [
-      .Empty, .Empty, .Empty, .Empty, .Empty, .Empty, .Empty, .Empty, .Empty, .Empty, .Empty,
-      .Empty, .Empty,
-    ],
-    [
-      .Empty, .TextWall, .TextIs, .TextStop, .Empty, .Empty, .Empty, .Empty, .Empty, .TextRock,
-      .TextIs, .TextPush, .Empty,
-    ],
-    [
-      .Empty, .Empty, .Empty, .Empty, .Empty, .Empty, .Empty, .Empty, .Empty, .Empty, .Empty,
-      .Empty, .Empty,
-    ],
-  ]
-
-func getPositions(of tile: Tile) -> [LevelPosition] {
-  var positions: [LevelPosition] = []
-  for j in 0..<level.count {
-    for i in 0..<level.first!.count {
-      if tile == level[j][i] {
-        positions.append(LevelPosition(i: i, j: j))
-      }
-    }
-  }
-  return positions
+func move(tile: Tile, from startingPosition: LevelPosition, to endPosition: LevelPosition) {
+  level.remove(tile: tile, at: startingPosition)
+  level.add(tile: tile, at: endPosition)
 }
 
 // MARK: - SDL
@@ -247,17 +163,21 @@ try SDL.Run { engine in
       if event.type == SDL_QUIT.rawValue {
         engine?.removeWindow(window)
         engine?.stop()
-      } else if event.type == SDL_KEYDOWN.rawValue {
+      }
+      else if event.type == SDL_KEYDOWN.rawValue {
         if event.key.keysym.sym == SDLK_LEFT.rawValue {
           // move left
           moveYou(using: -1, and: 0)
-        } else if event.key.keysym.sym == SDLK_RIGHT.rawValue {
+        }
+        else if event.key.keysym.sym == SDLK_RIGHT.rawValue {
           // move right
           moveYou(using: 1, and: 0)
-        } else if event.key.keysym.sym == SDLK_UP.rawValue {
+        }
+        else if event.key.keysym.sym == SDLK_UP.rawValue {
           // move up
           moveYou(using: 0, and: -1)
-        } else if event.key.keysym.sym == SDLK_DOWN.rawValue {
+        }
+        else if event.key.keysym.sym == SDLK_DOWN.rawValue {
           // move down
           moveYou(using: 0, and: 1)
         }
@@ -271,42 +191,42 @@ try SDL.Run { engine in
     renderer.result(of: SDL_RenderClear)
 
     /* Draw your stuff */
-    for j in 0..<level.count {
-      for i in 0..<level.first!.count {
-        let tile = level[j][i]
-        var textureToDraw: SDLTexture? = nil
-        switch tile {
-        case .Baba:
-          textureToDraw = babaTexture
-        case .Flag:
-          textureToDraw = flagTexture
-        case .Rock:
-          textureToDraw = rockTexture
-        case .TextBaba:
-          textureToDraw = textBabaTexture
-        case .TextFlag:
-          textureToDraw = textFlagTexture
-        case .TextIs:
-          textureToDraw = textIsTexture
-        case .TextPush:
-          textureToDraw = textPushTexture
-        case .TextRock:
-          textureToDraw = textRockTexture
-        case .TextStop:
-          textureToDraw = textStopTexture
-        case .TextWall:
-          textureToDraw = textWallTexture
-        case .TextWin:
-          textureToDraw = textWinTexture
-        case .TextYou:
-          textureToDraw = textYouTexture
-        case .Wall:
-          textureToDraw = wallTexture
-        default: break
+    for j in 0..<level.height {
+      for i in 0..<level.width {
+        for tile in level.tiles(at: LevelPosition(i: i, j: j)) {
+          var textureToDraw: SDLTexture? = nil
+          switch tile {
+          case .Baba:
+            textureToDraw = babaTexture
+          case .Flag:
+            textureToDraw = flagTexture
+          case .Rock:
+            textureToDraw = rockTexture
+          case .TextBaba:
+            textureToDraw = textBabaTexture
+          case .TextFlag:
+            textureToDraw = textFlagTexture
+          case .TextIs:
+            textureToDraw = textIsTexture
+          case .TextPush:
+            textureToDraw = textPushTexture
+          case .TextRock:
+            textureToDraw = textRockTexture
+          case .TextStop:
+            textureToDraw = textStopTexture
+          case .TextWall:
+            textureToDraw = textWallTexture
+          case .TextWin:
+            textureToDraw = textWinTexture
+          case .TextYou:
+            textureToDraw = textYouTexture
+          case .Wall:
+            textureToDraw = wallTexture
+          default: break
+          }
 
+          draw(texture: textureToDraw, at: i, and: j, using: renderer)
         }
-
-        draw(texture: textureToDraw, at: i, and: j, using: renderer)
       }
     }
 
