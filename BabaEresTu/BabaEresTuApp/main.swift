@@ -12,9 +12,10 @@ import SwiftSDL2
 
 // MARK: - Math
 
-struct LevelPosition {
+struct LevelPosition: Equatable {
   var i: Int
   var j: Int
+
 }
 
 // MARK: - Extensions
@@ -42,10 +43,13 @@ var level: Level = Level()
 enum Adjective {
   case You
   case Stop
+  case Win
 }
 
 func readRulesForThisStep() -> [Adjective: [Tile]] {
-  let rules: [Adjective: [Tile]] = [.You: [.Baba], .Stop: [.Wall, .Rock]]
+  let rules: [Adjective: [Tile]] = [.You: [.Wall],
+                                    .Stop: [.Wall, .Rock],
+                                    .Win: [.Flag]]
 
   return rules
 }
@@ -58,19 +62,49 @@ func moveYou(using di: Int, and dj: Int) {
     return
   }
 
+
+
   for affectedTile in affectedTiles {
-    for position in level.getPositions(of: affectedTile) {
+    var orderedTilePositions = level.getPositions(of: affectedTile)
+    if di > 0 || dj > 0 {
+      orderedTilePositions.reverse()
+    }
+    for position in orderedTilePositions {
       let nextPosition = LevelPosition(i: position.i + di, j: position.j + dj)
-      if level.canMove(to: nextPosition) {
-        move(tile: affectedTile, from: position, to: nextPosition)
+      if level.canPlayerMove(to: nextPosition) {
+        level.remove(tile: affectedTile, at: position)
+        level.add(tile: affectedTile, at: nextPosition)
       }
     }
   }
+  // Here you would advance one "puzzle step"
+  // Check win condition
+  if checkIfPlayerHasWon() {
+    print("Player won!")
+  }
 }
 
-func move(tile: Tile, from startingPosition: LevelPosition, to endPosition: LevelPosition) {
-  level.remove(tile: tile, at: startingPosition)
-  level.add(tile: tile, at: endPosition)
+// MARK: - Winning
+func checkIfPlayerHasWon() -> Bool {
+  // WARN: Rules should only be calculated once at every puzzle step
+  let rules = readRulesForThisStep()
+  guard let youTiles = rules[.You], let winTiles = rules[.Win] else {
+    return false
+  }
+
+  for youTile in youTiles {
+    let youPositions = level.getPositions(of: youTile)
+    for winTile in winTiles {
+      let winPosition = level.getPositions(of: winTile)
+      for position in winPosition {
+        if youPositions.contains(position) {
+          return true
+        }
+      }
+    }
+  }
+
+  return false
 }
 
 // MARK: - SDL

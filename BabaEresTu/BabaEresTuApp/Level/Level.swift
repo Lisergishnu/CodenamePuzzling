@@ -121,7 +121,7 @@ class Level {
     return positions
   }
 
-  func canMove(to position: LevelPosition) -> Bool {
+  func canPlayerMove(to position: LevelPosition) -> Bool {
     if position.i < 0 || position.j < 0 || position.i >= width || position.j >= height {
       return false
     }
