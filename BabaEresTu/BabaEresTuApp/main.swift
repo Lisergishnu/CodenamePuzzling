@@ -59,6 +59,10 @@ func readRulesForThisStep() -> [Adjective: [Tile]] {
 }
 
 func getNounsBasedOnTextTiles(at position: LevelPosition) -> [Tile] {
+  if level.isOutOfBounds(position: position) {
+    return []
+  }
+  
   var nounTiles: [Tile] = []
   let nounTextTiles = level.tiles(at: position)
   if nounTextTiles.contains(.TextBaba) {
@@ -105,6 +109,9 @@ func performAfterStepRuleCheckAndModification() {
 
   // Also all text is push at all times
   rules[.Push]?.append(contentsOf: [.TextIs, .TextWin, .TextYou, .TextBaba, .TextFlag, .TextPush, .TextRock, .TextStop])
+  if let youNouns = rules[.You] {
+    rules[.Stop]?.append(contentsOf: youNouns)
+  }
 }
 
 // MARK: Pushing
@@ -130,6 +137,8 @@ func pushPush(using di: Int, and dj: Int, startingFrom position: LevelPosition, 
       if pushPush(using: di, and: dj, startingFrom: newPos, considering: rules) {
         level.remove(tile: tile, at: position)
         level.add(tile: tile, at: newPos)
+      } else {
+        return false
       }
     } else {
       if let stopTiles = rules[.Stop] {
@@ -317,8 +326,15 @@ try SDL.Run { engine in
 
   // MARK: - Render
   engine.render = {
-    renderer.result(of: SDL_SetRenderDrawColor, 0, 0, 0, 255)
+    renderer.result(of: SDL_SetRenderDrawColor, 50, 50, 50, 255)
     renderer.result(of: SDL_RenderClear)
+
+    /* Draw level background */
+    let offsetX = (640 - (32 * level.width)) / 2
+    let offsetY = (480 - (32 * level.height)) / 2
+    var levelBackgroundRect = SDL_Rect(x: Int32(offsetX), y: Int32(offsetY), w: Int32(32*level.width), h: Int32(32*level.height))
+    renderer.result(of: SDL_SetRenderDrawColor, 0, 0, 0, 255)
+    renderer.result(of: SDL_RenderFillRect, &levelBackgroundRect)
 
     /* Draw your stuff */
     for j in 0..<level.height {
@@ -368,10 +384,12 @@ try SDL.Run { engine in
 
 func draw(texture: SDLTexture?, at row: Int, and column: Int, using renderer: SDLRenderer) {
   let textureSize = SDL_Rect(x: 0, y: 0, w: 32, h: 32)
+  let offsetX = (640 - (32 * level.width)) / 2
+  let offsetY = (480 - (32 * level.height)) / 2
   renderer.copy(
     from: texture,
     within: textureSize,
-    into: SDL_Rect(x: Int32(row * 32), y: Int32(column * 32), w: 32, h: 32),
+    into: SDL_Rect(x:  Int32(row * 32) + Int32(offsetX), y: Int32(column * 32) + Int32(offsetY), w: 32, h: 32),
     rotatedBy: 0,
     aroundCenter: nil,
     flipped: .none

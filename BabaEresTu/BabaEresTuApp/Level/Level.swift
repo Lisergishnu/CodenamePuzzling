@@ -134,6 +134,14 @@ class Level {
         }
       }
     }
+    if let pushTiles = readRulesForThisStep()[.Push] {
+      let tilesAtPosition = tiles(at: position)
+      for tile in tilesAtPosition {
+        if pushTiles.contains(tile) {
+          return false
+        }
+      }
+    }
 
     return true
   }
