@@ -24,6 +24,7 @@
 		FF3C9888249950AF00FFFB3D /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF3C9864249932E400FFFB3D /* main.swift */; };
 		FF3C988B249950D000FFFB3D /* SwiftSDL2 in Frameworks */ = {isa = PBXBuildFile; productRef = FF3C988A249950D000FFFB3D /* SwiftSDL2 */; };
 		FF69ED1724A278B8006B1A38 /* Level.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF69ED1624A278B8006B1A38 /* Level.swift */; };
+		FF69F7262524914300D9125F /* Island-00_Baba_Is_You.png in Resources */ = {isa = PBXBuildFile; fileRef = FF69F7252524914300D9125F /* Island-00_Baba_Is_You.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -45,6 +46,7 @@
 		FF3C98822499505E00FFFB3D /* BabaEresTuApp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = BabaEresTuApp.entitlements; sourceTree = "<group>"; };
 		FF3C98862499507F00FFFB3D /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FF69ED1624A278B8006B1A38 /* Level.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Level.swift; sourceTree = "<group>"; };
+		FF69F7252524914300D9125F /* Island-00_Baba_Is_You.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Island-00_Baba_Is_You.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -103,6 +105,7 @@
 				FF0526B72499527900CB5F9B /* Resources */,
 				FF3C9864249932E400FFFB3D /* main.swift */,
 				FF3C98862499507F00FFFB3D /* Info.plist */,
+				FF69F7252524914300D9125F /* Island-00_Baba_Is_You.png */,
 				FF3C98822499505E00FFFB3D /* BabaEresTuApp.entitlements */,
 			);
 			path = BabaEresTuApp;
@@ -198,6 +201,7 @@
 				FF0526CF249956EE00CB5F9B /* TextRock.png in Resources */,
 				FF0526CA249956EE00CB5F9B /* Flag.png in Resources */,
 				FF0526D0249956EE00CB5F9B /* TextPush.png in Resources */,
+				FF69F7262524914300D9125F /* Island-00_Baba_Is_You.png in Resources */,
 				FF3C98872499507F00FFFB3D /* Info.plist in Resources */,
 				FF0526C9249956EE00CB5F9B /* TextYou.png in Resources */,
 				FF0526CD249956EE00CB5F9B /* TextBaba.png in Resources */,

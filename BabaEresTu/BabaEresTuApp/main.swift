@@ -44,36 +44,127 @@ enum Adjective {
   case You
   case Stop
   case Win
+  case Push
 }
 
-func readRulesForThisStep() -> [Adjective: [Tile]] {
-  let rules: [Adjective: [Tile]] = [.You: [.Wall],
-                                    .Stop: [.Wall, .Rock],
-                                    .Win: [.Flag]]
+var rules: [Adjective: [Tile]] = [
+  .You: [.Baba],
+  .Stop: [.Wall],
+  .Win: [.Flag],
+  .Push: [.Rock, .TextIs, .TextWin, .TextYou, .TextBaba, .TextFlag, .TextPush, .TextRock, .TextStop]
+]
 
+func readRulesForThisStep() -> [Adjective: [Tile]] {
   return rules
+}
+
+func getNounsBasedOnTextTiles(at position: LevelPosition) -> [Tile] {
+  var nounTiles: [Tile] = []
+  let nounTextTiles = level.tiles(at: position)
+  if nounTextTiles.contains(.TextBaba) {
+    nounTiles.append(.Baba)
+  }
+  if nounTextTiles.contains(.TextFlag) {
+    nounTiles.append(.Flag)
+  }
+  if nounTextTiles.contains(.TextRock) {
+    nounTiles.append(.Rock)
+  }
+  if nounTextTiles.contains(.TextWall) {
+    nounTiles.append(.Wall)
+  }
+
+  return nounTiles
+}
+
+func getAffectedNouns(for textAdjective: Tile) -> [Tile] {
+  let adjectivePositions = level.getPositions(of: textAdjective)
+  var nounTiles: [Tile] = []
+  for position in adjectivePositions {
+    let upperPosition = LevelPosition(i: position.i, j: position.j - 1)
+    let upperUpperPosition = LevelPosition(i: position.i, j: position.j - 2)
+    let leftPosition = LevelPosition(i: position.i - 1, j: position.j)
+    let leftLeftPosition = LevelPosition(i: position.i - 2, j: position.j)
+    if level.tiles(at: upperPosition).contains(.TextIs) {
+      nounTiles += getNounsBasedOnTextTiles(at: upperUpperPosition)
+    }
+    if level.tiles(at: leftPosition).contains(.TextIs) {
+      nounTiles += getNounsBasedOnTextTiles(at: leftLeftPosition)
+    }
+  }
+
+  return nounTiles
+}
+
+func performAfterStepRuleCheckAndModification() {
+  // Write rules
+  rules[.You] = getAffectedNouns(for: .TextYou)
+  rules[.Stop] = getAffectedNouns(for: .TextStop)
+  rules[.Win] = getAffectedNouns(for: .TextWin)
+  rules[.Push] = getAffectedNouns(for: .TextPush)
+
+  // Also all text is push at all times
+  rules[.Push]?.append(contentsOf: [.TextIs, .TextWin, .TextYou, .TextBaba, .TextFlag, .TextPush, .TextRock, .TextStop])
+}
+
+// MARK: Pushing
+
+func pushPush(using di: Int, and dj: Int, startingFrom position: LevelPosition, considering rules: [Adjective: [Tile]]) -> Bool {
+  // push tiene 3 reglas
+  // 1.- si la cosa que se tiene que mover apunta a un lugar vacio se mueve
+  // 2.- si la cosa en la direccion de movimiento es inmovible, entonces nada
+  // 3.- si la cosa es push, repetir estas reglas sobre ese tile (recursion)
+  guard let pushTiles = rules[.Push] else {
+    return false
+  }
+
+  if level.isOutOfBounds(position: position) {
+    return false
+  }
+
+  let tiles = level.tiles(at: position)
+  for tile in tiles {
+    if pushTiles.contains(tile) {
+      // Tenemos otro push, revisar al lado
+      let newPos = LevelPosition(i: position.i + di, j: position.j + dj)
+      if pushPush(using: di, and: dj, startingFrom: newPos, considering: rules) {
+        level.remove(tile: tile, at: position)
+        level.add(tile: tile, at: newPos)
+      }
+    } else {
+      if let stopTiles = rules[.Stop] {
+        if stopTiles.contains(tile) {
+          return false
+        }
+      }
+    }
+  }
+  return true
 }
 
 // MARK: Movement
 
 func moveYou(using di: Int, and dj: Int) {
   let rules = readRulesForThisStep()
-  guard let affectedTiles = rules[.You] else {
+  guard let youTiles = rules[.You] else {
     return
   }
 
-
-
-  for affectedTile in affectedTiles {
-    var orderedTilePositions = level.getPositions(of: affectedTile)
+  for youTile in youTiles {
+    var orderedTilePositions = level.getPositions(of: youTile)
     if di > 0 || dj > 0 {
       orderedTilePositions.reverse()
     }
+
     for position in orderedTilePositions {
       let nextPosition = LevelPosition(i: position.i + di, j: position.j + dj)
+      // Push rule
+      let _ = pushPush(using: di, and: dj, startingFrom: nextPosition, considering: rules)
+
+      // Move
       if level.canPlayerMove(to: nextPosition) {
-        level.remove(tile: affectedTile, at: position)
-        level.add(tile: affectedTile, at: nextPosition)
+        level.remove(tile: youTile, at: position)
+        level.add(tile: youTile, at: nextPosition)
       }
     }
   }
@@ -82,9 +173,14 @@ func moveYou(using di: Int, and dj: Int) {
   if checkIfPlayerHasWon() {
     print("Player won!")
   }
+
+  // Check rule state for next step
+  performAfterStepRuleCheckAndModification()
+
 }
 
 // MARK: - Winning
+
 func checkIfPlayerHasWon() -> Bool {
   // WARN: Rules should only be calculated once at every puzzle step
   let rules = readRulesForThisStep()

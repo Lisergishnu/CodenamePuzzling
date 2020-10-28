@@ -122,7 +122,7 @@ class Level {
   }
 
   func canPlayerMove(to position: LevelPosition) -> Bool {
-    if position.i < 0 || position.j < 0 || position.i >= width || position.j >= height {
+    if isOutOfBounds(position: position) {
       return false
     }
 
@@ -136,5 +136,12 @@ class Level {
     }
 
     return true
+  }
+
+  func isOutOfBounds(position: LevelPosition) -> Bool {
+    if position.i < 0 || position.j < 0 || position.i >= width || position.j >= height {
+      return true
+    }
+    return false
   }
 }
