@@ -62,7 +62,7 @@ func getNounsBasedOnTextTiles(at position: LevelPosition) -> [Tile] {
   if level.isOutOfBounds(position: position) {
     return []
   }
-  
+
   var nounTiles: [Tile] = []
   let nounTextTiles = level.tiles(at: position)
   if nounTextTiles.contains(.TextBaba) {
@@ -137,6 +137,7 @@ func pushPush(using di: Int, and dj: Int, startingFrom position: LevelPosition, 
       if pushPush(using: di, and: dj, startingFrom: newPos, considering: rules) {
         level.remove(tile: tile, at: position)
         level.add(tile: tile, at: newPos)
+        thisStepMovementStack.append((tile,position,newPos))
       } else {
         return false
       }
@@ -171,28 +172,46 @@ func moveYou(using di: Int, and dj: Int) {
       let _ = pushPush(using: di, and: dj, startingFrom: nextPosition, considering: rules)
 
       // Move
-      if level.canPlayerMove(to: nextPosition) {
+      if level.canPlayerMove(to: nextPosition, considering: rules) {
         level.remove(tile: youTile, at: position)
         level.add(tile: youTile, at: nextPosition)
+        thisStepMovementStack.append((youTile,position,nextPosition))
       }
     }
   }
   // Here you would advance one "puzzle step"
   // Check win condition
-  if checkIfPlayerHasWon() {
+  if checkIfPlayerHasWon(considering: rules) {
     print("Player won!")
   }
 
   // Check rule state for next step
   performAfterStepRuleCheckAndModification()
+  tileMovementStack.append(thisStepMovementStack)
+  thisStepMovementStack.removeAll()
+}
 
+// MARK: - Undo / Rewind mechanic
+
+// Cada vez que occurre un frame esta variable se vacia y luego al final se inserta en el stack de abajo
+var thisStepMovementStack: [(Tile, LevelPosition, LevelPosition)] = []
+// Cada indice indica que tiles se movieron desde una posicion hacia otra durante un step
+var tileMovementStack: [[(Tile, LevelPosition, LevelPosition)]] = []
+
+func undo() {
+  guard let movementsToUndo = tileMovementStack.popLast() else {
+    return
+  }
+
+  for movement in movementsToUndo {
+    level.remove(tile: movement.0, at: movement.2)
+    level.add(tile: movement.0, at: movement.1)
+  }
 }
 
 // MARK: - Winning
 
-func checkIfPlayerHasWon() -> Bool {
-  // WARN: Rules should only be calculated once at every puzzle step
-  let rules = readRulesForThisStep()
+func checkIfPlayerHasWon(considering rules: [Adjective: [Tile]]) -> Bool {
   guard let youTiles = rules[.You], let winTiles = rules[.Win] else {
     return false
   }
@@ -319,6 +338,10 @@ try SDL.Run { engine in
         else if event.key.keysym.sym == SDLK_DOWN.rawValue {
           // move down
           moveYou(using: 0, and: 1)
+        }
+        else if event.key.keysym.sym == SDLK_BACKSPACE.rawValue {
+          undo()
+          performAfterStepRuleCheckAndModification()
         }
       }
     }

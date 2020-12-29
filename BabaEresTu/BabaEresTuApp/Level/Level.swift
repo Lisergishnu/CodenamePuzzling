@@ -92,6 +92,10 @@ class Level {
   // MARK: Public API
 
   func tiles(at position: LevelPosition) -> [Tile] {
+    if isOutOfBounds(position: position) {
+      return []
+    }
+    
     return level[position.j][position.i]
   }
 
@@ -121,12 +125,12 @@ class Level {
     return positions
   }
 
-  func canPlayerMove(to position: LevelPosition) -> Bool {
+  func canPlayerMove(to position: LevelPosition, considering rules: [Adjective: [Tile]]) -> Bool {
     if isOutOfBounds(position: position) {
       return false
     }
 
-    if let stopTiles = readRulesForThisStep()[.Stop] {
+    if let stopTiles = rules[.Stop] {
       let tilesAtPosition = tiles(at: position)
       for tile in tilesAtPosition {
         if stopTiles.contains(tile) {
@@ -134,7 +138,7 @@ class Level {
         }
       }
     }
-    if let pushTiles = readRulesForThisStep()[.Push] {
+    if let pushTiles = rules[.Push] {
       let tilesAtPosition = tiles(at: position)
       for tile in tilesAtPosition {
         if pushTiles.contains(tile) {
