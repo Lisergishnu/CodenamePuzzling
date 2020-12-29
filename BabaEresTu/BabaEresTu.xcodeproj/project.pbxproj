@@ -20,7 +20,6 @@
 		FF0526D1249956EE00CB5F9B /* Rock.png in Resources */ = {isa = PBXBuildFile; fileRef = FF0526C4249956EE00CB5F9B /* Rock.png */; };
 		FF0526D2249956EE00CB5F9B /* TextIs.png in Resources */ = {isa = PBXBuildFile; fileRef = FF0526C5249956EE00CB5F9B /* TextIs.png */; };
 		FF0526D3249956EE00CB5F9B /* TextFlag.png in Resources */ = {isa = PBXBuildFile; fileRef = FF0526C6249956EE00CB5F9B /* TextFlag.png */; };
-		FF3C98872499507F00FFFB3D /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = FF3C98862499507F00FFFB3D /* Info.plist */; };
 		FF3C9888249950AF00FFFB3D /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF3C9864249932E400FFFB3D /* main.swift */; };
 		FF3C988B249950D000FFFB3D /* SwiftSDL2 in Frameworks */ = {isa = PBXBuildFile; productRef = FF3C988A249950D000FFFB3D /* SwiftSDL2 */; };
 		FF69ED1724A278B8006B1A38 /* Level.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF69ED1624A278B8006B1A38 /* Level.swift */; };
@@ -156,7 +155,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1150;
-				LastUpgradeCheck = 1150;
+				LastUpgradeCheck = 1200;
 				ORGANIZATIONNAME = LiserCorp;
 				TargetAttributes = {
 					FF3C98752499505A00FFFB3D = {
@@ -202,7 +201,6 @@
 				FF0526CA249956EE00CB5F9B /* Flag.png in Resources */,
 				FF0526D0249956EE00CB5F9B /* TextPush.png in Resources */,
 				FF69F7262524914300D9125F /* Island-00_Baba_Is_You.png in Resources */,
-				FF3C98872499507F00FFFB3D /* Info.plist in Resources */,
 				FF0526C9249956EE00CB5F9B /* TextYou.png in Resources */,
 				FF0526CD249956EE00CB5F9B /* TextBaba.png in Resources */,
 			);
@@ -249,6 +247,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -309,6 +308,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -340,6 +340,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = BabaEresTuApp/BabaEresTuApp.entitlements;
+				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = 3F7SUY6C44;
@@ -359,6 +360,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = BabaEresTuApp/BabaEresTuApp.entitlements;
+				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = 3F7SUY6C44;
