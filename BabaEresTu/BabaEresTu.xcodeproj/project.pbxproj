@@ -20,6 +20,7 @@
 		FF0526D1249956EE00CB5F9B /* Rock.png in Resources */ = {isa = PBXBuildFile; fileRef = FF0526C4249956EE00CB5F9B /* Rock.png */; };
 		FF0526D2249956EE00CB5F9B /* TextIs.png in Resources */ = {isa = PBXBuildFile; fileRef = FF0526C5249956EE00CB5F9B /* TextIs.png */; };
 		FF0526D3249956EE00CB5F9B /* TextFlag.png in Resources */ = {isa = PBXBuildFile; fileRef = FF0526C6249956EE00CB5F9B /* TextFlag.png */; };
+		FF2AE35425CF6AE200496E89 /* TextBaba-animated.png in Resources */ = {isa = PBXBuildFile; fileRef = FF2AE35325CF6AE200496E89 /* TextBaba-animated.png */; };
 		FF3C9888249950AF00FFFB3D /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF3C9864249932E400FFFB3D /* main.swift */; };
 		FF3C988B249950D000FFFB3D /* SwiftSDL2 in Frameworks */ = {isa = PBXBuildFile; productRef = FF3C988A249950D000FFFB3D /* SwiftSDL2 */; };
 		FF69ED1724A278B8006B1A38 /* Level.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF69ED1624A278B8006B1A38 /* Level.swift */; };
@@ -40,6 +41,7 @@
 		FF0526C4249956EE00CB5F9B /* Rock.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Rock.png; sourceTree = "<group>"; };
 		FF0526C5249956EE00CB5F9B /* TextIs.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TextIs.png; sourceTree = "<group>"; };
 		FF0526C6249956EE00CB5F9B /* TextFlag.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TextFlag.png; sourceTree = "<group>"; };
+		FF2AE35325CF6AE200496E89 /* TextBaba-animated.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "TextBaba-animated.png"; sourceTree = "<group>"; };
 		FF3C9864249932E400FFFB3D /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		FF3C98762499505A00FFFB3D /* BabaEresTuApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BabaEresTuApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FF3C98822499505E00FFFB3D /* BabaEresTuApp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = BabaEresTuApp.entitlements; sourceTree = "<group>"; };
@@ -75,6 +77,7 @@
 				FF0526BE249956EE00CB5F9B /* TextWall.png */,
 				FF0526BF249956EE00CB5F9B /* TextWin.png */,
 				FF0526BC249956EE00CB5F9B /* TextYou.png */,
+				FF2AE35325CF6AE200496E89 /* TextBaba-animated.png */,
 				FF0526BA249956ED00CB5F9B /* Wall.png */,
 			);
 			path = Resources;
@@ -193,6 +196,7 @@
 				FF0526C7249956EE00CB5F9B /* Wall.png in Resources */,
 				FF0526CC249956EE00CB5F9B /* TextWin.png in Resources */,
 				FF0526CB249956EE00CB5F9B /* TextWall.png in Resources */,
+				FF2AE35425CF6AE200496E89 /* TextBaba-animated.png in Resources */,
 				FF0526C8249956EE00CB5F9B /* Baba.png in Resources */,
 				FF0526D1249956EE00CB5F9B /* Rock.png in Resources */,
 				FF0526CE249956EE00CB5F9B /* TextStop.png in Resources */,

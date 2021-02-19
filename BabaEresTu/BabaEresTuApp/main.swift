@@ -189,6 +189,9 @@ func moveYou(using di: Int, and dj: Int) {
   performAfterStepRuleCheckAndModification()
   tileMovementStack.append(thisStepMovementStack)
   thisStepMovementStack.removeAll()
+
+  // Animate tiles
+  animatedTiles.forEach { $0.nextFrame() }
 }
 
 // MARK: - Undo / Rewind mechanic
@@ -229,6 +232,66 @@ func checkIfPlayerHasWon(considering rules: [Adjective: [Tile]]) -> Bool {
   }
 
   return false
+}
+
+// MARK: - Animation
+
+var animatedTiles: [SpriteAnimation] = []
+
+class SpriteAnimation {
+  var animationFrame: SDL_Rect
+  var texture: SDLTexture?
+
+  private var index: Int
+  private var maxFrames: Int
+
+  init(with texture: SDLTexture?, and rect: SDL_Rect,considering maxFrames: Int) {
+    self.texture = texture
+    self.animationFrame = rect
+    self.index = 0
+    self.maxFrames = maxFrames
+  }
+
+  func nextFrame() {
+    index = (index + 1) % maxFrames
+    animationFrame.x = Int32(index) * animationFrame.w
+  }
+}
+
+// MARK: - Life Cycle
+
+fileprivate func handleInput(_ engine: SDL.Engine, _ window: SDLWindow) -> SDL.Engine.InputHandler {
+  return { [weak engine] in
+    var event = SDL_Event()
+    while SDL_PollEvent(&event) != 0 {
+      if event.type == SDL_QUIT.rawValue {
+        engine?.removeWindow(window)
+        engine?.stop() //trap con joanna newsome en arpa
+      }
+      else if event.type == SDL_KEYDOWN.rawValue {
+        if event.key.keysym.sym == SDLK_LEFT.rawValue {
+          // move left
+          moveYou(using: -1, and: 0)
+        }
+        else if event.key.keysym.sym == SDLK_RIGHT.rawValue {
+          // move right
+          moveYou(using: 1, and: 0)
+        }
+        else if event.key.keysym.sym == SDLK_UP.rawValue {
+          // move up
+          moveYou(using: 0, and: -1)
+        }
+        else if event.key.keysym.sym == SDLK_DOWN.rawValue {
+          // move down
+          moveYou(using: 0, and: 1)
+        }
+        else if event.key.keysym.sym == SDLK_BACKSPACE.rawValue {
+          undo()
+          performAfterStepRuleCheckAndModification()
+        }
+      }
+    }
+  }
 }
 
 // MARK: - SDL
@@ -314,38 +377,16 @@ try SDL.Run { engine in
     texturesNamed: "Wall.png"
   )
 
+  // Animation
+
+  let textBabaAnimationTexture = try SDLTexture.loadWholeTexture(into: renderer, resourceURL: Bundle.main.resourceURL!, texturesNamed: "TextBaba-animated.png")
+
+  let textBabaAnimation = SpriteAnimation(with: textBabaAnimationTexture, and: SDL_Rect(x: 0, y: 0, w: 32, h: 32), considering: 3)
+
+  animatedTiles.append(textBabaAnimation)
+
   // MARK: - Input
-  engine.handleInput = { [weak engine] in
-    var event = SDL_Event()
-    while SDL_PollEvent(&event) != 0 {
-      if event.type == SDL_QUIT.rawValue {
-        engine?.removeWindow(window)
-        engine?.stop()
-      }
-      else if event.type == SDL_KEYDOWN.rawValue {
-        if event.key.keysym.sym == SDLK_LEFT.rawValue {
-          // move left
-          moveYou(using: -1, and: 0)
-        }
-        else if event.key.keysym.sym == SDLK_RIGHT.rawValue {
-          // move right
-          moveYou(using: 1, and: 0)
-        }
-        else if event.key.keysym.sym == SDLK_UP.rawValue {
-          // move up
-          moveYou(using: 0, and: -1)
-        }
-        else if event.key.keysym.sym == SDLK_DOWN.rawValue {
-          // move down
-          moveYou(using: 0, and: 1)
-        }
-        else if event.key.keysym.sym == SDLK_BACKSPACE.rawValue {
-          undo()
-          performAfterStepRuleCheckAndModification()
-        }
-      }
-    }
-  }
+  engine.handleInput = handleInput(engine, window)
 
   // MARK: - Render
   engine.render = {
@@ -372,7 +413,7 @@ try SDL.Run { engine in
           case .Rock:
             textureToDraw = rockTexture
           case .TextBaba:
-            textureToDraw = textBabaTexture
+            textureToDraw = textBabaAnimation.texture
           case .TextFlag:
             textureToDraw = textFlagTexture
           case .TextIs:
@@ -394,7 +435,11 @@ try SDL.Run { engine in
           default: break
           }
 
-          draw(texture: textureToDraw, at: i, and: j, using: renderer)
+          if tile == .TextBaba {
+            draw(animation: textBabaAnimation, at: i, and: j, using: renderer)
+          } else {
+            draw(texture: textureToDraw, at: i, and: j, using: renderer)
+          }
         }
       }
     }
@@ -406,7 +451,7 @@ try SDL.Run { engine in
 // MARK: - Helper functions
 
 func draw(texture: SDLTexture?, at row: Int, and column: Int, using renderer: SDLRenderer) {
-  let textureSize = SDL_Rect(x: 0, y: 0, w: 32, h: 32)
+  let textureSize = SDL_Rect(x: 0, y: 0, w: 32, h: 32) // aca se puede modificar para hacer la animacion
   let offsetX = (640 - (32 * level.width)) / 2
   let offsetY = (480 - (32 * level.height)) / 2
   renderer.copy(
@@ -418,3 +463,17 @@ func draw(texture: SDLTexture?, at row: Int, and column: Int, using renderer: SD
     flipped: .none
   )
 }
+
+func draw(animation: SpriteAnimation, at row: Int, and column: Int, using renderer: SDLRenderer) {
+  let offsetX = (640 - (32 * level.width)) / 2
+  let offsetY = (480 - (32 * level.height)) / 2
+  renderer.copy(
+    from: animation.texture,
+    within: animation.animationFrame,
+    into: SDL_Rect(x:  Int32(row * 32) + Int32(offsetX), y: Int32(column * 32) + Int32(offsetY), w: 32, h: 32),
+    rotatedBy: 0,
+    aroundCenter: nil,
+    flipped: .none
+  )
+}
+
